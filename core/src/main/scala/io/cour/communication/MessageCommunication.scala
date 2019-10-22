@@ -13,6 +13,8 @@ trait MessageCommunication {
 
   def sendDirect(username: String, message: String): Future[Either[ErrorResult, Unit]]
 
+  def modifyMessage(id: Id[MessagePreview], message: String): Future[Either[ErrorResult, Unit]]
+
   def deleteMessage(id: Id[MessagePreview]): Future[Either[ErrorResult, Unit]]
 
   def streamsAndAliases(filter: String, streamsMax: Int, aliasesMax: Int): Future[StreamsAndAliases]
