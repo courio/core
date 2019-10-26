@@ -9,6 +9,8 @@ trait UserCommunication {
 
   def updateProfilePicture(base64: String): Future[Either[ErrorResult, Unit]]
 
+  def addFCMToken(token: String): Future[Unit]
+
   def logIn(username: String, password: String): Future[Either[ErrorResult, Profile]]
 
   def logOut(): Future[Unit]

@@ -8,8 +8,9 @@ case class Profile(userId: Id[Profile],
                    aliases: List[AliasPreview],
                    fullName: Option[String],
                    defaultPool: Id[PoolPreview],
+                   fcmTokens: Set[String],
                    hasPassword: Boolean)
 
 object Profile {
-  lazy val empty: Profile = Profile(Id("", ""), Id("", ""), "", Nil, None, Id("", ""), hasPassword = false)
+  lazy val empty: Profile = Profile(Id("", ""), Id("", ""), "", Nil, None, Id("", ""), Set.empty, hasPassword = false)
 }
