@@ -21,10 +21,15 @@ case class MessagePreview(id: Id[MessagePreview],
                           resourceTypes: List[String] = Nil,
                           resourceSizes: List[Long] = Nil,
                           size: Long,
+                          reactions: List[ReactionPreview],
                           created: Long,
                           modified: Long) {
   def isEmpty: Boolean = this == MessagePreview.empty
   def nonEmpty: Boolean = !isEmpty
+
+  def reactionsForIds(aliasIds: Set[Id[AliasPreview]]): Set[ReactionType] = reactions.collect {
+    case rp if aliasIds.contains(rp.by.id) => rp.`type`
+  }.toSet
 }
 
 object MessagePreview {
@@ -46,6 +51,7 @@ object MessagePreview {
     resourceTypes = Nil,
     resourceSizes = Nil,
     size = 0L,
+    reactions = Nil,
     created = 0L,
     modified = 0L
   )

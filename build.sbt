@@ -27,7 +27,7 @@ developers in ThisBuild := List(
   Developer(id="darkfrog", name="Matt Hicks", email="matt@matthicks.com", url=url("http://matthicks.com"))
 )
 
-val youiVersion = "0.12.4"
+val youiVersion = "0.12.5"
 val scarangoVersion = "2.1.5"
 
 lazy val root = project.in(file("."))

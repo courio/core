@@ -18,4 +18,6 @@ trait UserCommunication {
   def profile(): Future[Profile]
 
   def changePassword(currentPassword: Option[String], newPassword: String): Future[Either[ErrorResult, Unit]]
+
+  def agreeToEula(): Future[Unit]
 }

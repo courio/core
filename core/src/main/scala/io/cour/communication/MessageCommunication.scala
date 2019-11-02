@@ -1,7 +1,7 @@
 package io.cour.communication
 
 import com.outr.arango.Id
-import io.cour.model.{AliasPreview, ErrorResult, Group, MessagePreview, MessageResults, Permission, PermissionAndUsername, StreamPreview, StreamsAndAliases, Tag}
+import io.cour.model.{AliasPreview, ErrorResult, Group, MessagePreview, MessageResults, Permission, PermissionAndUsername, ReactionType, StreamPreview, StreamsAndAliases, Tag}
 import io.cour.query.SearchQuery
 
 import scala.concurrent.Future
@@ -14,6 +14,10 @@ trait MessageCommunication {
   def sendDirect(username: String, message: String): Future[Either[ErrorResult, Unit]]
 
   def modifyMessage(id: Id[MessagePreview], message: String): Future[Either[ErrorResult, Unit]]
+
+  def addReaction(messageId: Id[MessagePreview], `type`: ReactionType): Future[Unit]
+
+  def removeReaction(messageId: Id[MessagePreview], `type`: ReactionType): Future[Unit]
 
   def deleteMessage(id: Id[MessagePreview]): Future[Either[ErrorResult, Unit]]
 
