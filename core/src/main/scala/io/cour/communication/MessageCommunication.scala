@@ -9,6 +9,8 @@ import scala.concurrent.Future
 trait MessageCommunication {
   def query(query: SearchQuery, offset: Int, limit: Int): Future[MessageResults]
 
+  def verifyAvailableSpace(sizeInBytes: Long): Future[Boolean]
+
   def send(streamId: Id[StreamPreview], message: String): Future[Either[ErrorResult, Unit]]
 
   def sendDirect(username: String, message: String): Future[Either[ErrorResult, Unit]]
