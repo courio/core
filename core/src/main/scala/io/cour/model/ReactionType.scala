@@ -16,9 +16,10 @@ object ReactionType {
   case object Sad extends ReactionType
   case object Angry extends ReactionType
   case object Interesting extends ReactionType
+  case object Boring extends ReactionType
   case object Inappropriate extends ReactionType
 
-  lazy val all: List[ReactionType] = List(Like, Dislike, Love, Funny, Wow, Sad, Angry, Interesting, Inappropriate)
+  lazy val all: List[ReactionType] = List(Like, Dislike, Love, Funny, Wow, Sad, Angry, Interesting, Boring, Inappropriate)
   private lazy val namedMap = all.map { r =>
     r.name -> r
   }.toMap

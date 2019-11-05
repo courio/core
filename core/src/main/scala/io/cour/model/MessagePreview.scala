@@ -11,19 +11,20 @@ case class MessagePreview(id: Id[MessagePreview],
                           sourceLabel: String,
                           creator: NamedCredential[Credentialed],
                           tags: List[Id[Tag]],
-                          text: String = "",
+                          text: String,
                           content: Json,
                           mentioned: List[NamedCredential[AliasPreview]],
                           links: List[String],
                           linkPreviews: List[LinkPreview],
                           edited: Boolean,
                           resources: List[ResourcePreview],
-                          size: Long,
                           reactions: List[ReactionPreview],
                           created: Long,
                           modified: Long) {
   def isEmpty: Boolean = this == MessagePreview.empty
   def nonEmpty: Boolean = !isEmpty
+
+  lazy val size: Long = resources.foldLeft(0L)((total, resource) => total + resource.size)
 
   def reactionsForIds(aliasIds: Set[Id[AliasPreview]]): Set[ReactionType] = reactions.collect {
     case rp if aliasIds.contains(rp.by.id) => rp.`type`
@@ -46,7 +47,6 @@ object MessagePreview {
     linkPreviews = Nil,
     edited = false,
     resources = Nil,
-    size = 0L,
     reactions = Nil,
     created = 0L,
     modified = 0L

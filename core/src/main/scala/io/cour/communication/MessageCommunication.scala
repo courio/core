@@ -1,7 +1,7 @@
 package io.cour.communication
 
 import com.outr.arango.Id
-import io.cour.model.{AliasPreview, ErrorResult, Group, MessagePreview, MessageResults, Permission, PermissionAndUsername, ReactionType, StreamPreview, StreamsAndAliases, Tag}
+import io.cour.model.{AliasPreview, ErrorResult, Group, MessagePreview, MessageResults, Permission, PermissionAndUsername, ReactionType, ResourcePreview, StreamPreview, StreamsAndAliases, Tag}
 import io.cour.query.SearchQuery
 
 import scala.concurrent.Future
@@ -11,11 +11,11 @@ trait MessageCommunication {
 
   def verifyAvailableSpace(sizeInBytes: Long): Future[Boolean]
 
-  def send(streamId: Id[StreamPreview], message: String): Future[Either[ErrorResult, Unit]]
+  def send(streamId: Id[StreamPreview], message: String, resourceIds: List[Id[ResourcePreview]]): Future[Either[ErrorResult, Unit]]
 
-  def sendDirect(username: String, message: String): Future[Either[ErrorResult, Unit]]
+  def sendDirect(username: String, message: String, resourceIds: List[Id[ResourcePreview]]): Future[Either[ErrorResult, Unit]]
 
-  def modifyMessage(id: Id[MessagePreview], message: String): Future[Either[ErrorResult, Unit]]
+  def modifyMessage(id: Id[MessagePreview], message: String, resourceIds: List[Id[ResourcePreview]]): Future[Either[ErrorResult, Unit]]
 
   def addReaction(messageId: Id[MessagePreview], `type`: ReactionType): Future[Unit]
 
