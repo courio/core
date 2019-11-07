@@ -3,6 +3,7 @@ package io.cour.model
 import com.outr.arango.Id
 import io.circe.Json
 import io.youi.Unique
+import io.youi.net.URL
 
 case class MessagePreview(id: Id[MessagePreview],
                           streamId: Id[StreamPreview],
@@ -38,7 +39,7 @@ object MessagePreview {
     streamLabel = "",
     sourceId = Id("", ""),
     sourceLabel = "",
-    creator = NamedCredential(Credentialed(Id("", "")), "", None),
+    creator = NamedCredential(Credentialed(Id("", "")), "", None, URL(), URL()),
     tags = Nil,
     text = "",
     content = Json.obj(),
