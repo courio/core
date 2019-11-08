@@ -1,7 +1,6 @@
 package io.cour.query
 
-import io.cour.model.{FilterOperator, MessagePreview, StreamPreview}
-import com.outr.arango.Id
+import io.cour.model.{FilterOperator, MessagePreview, ReactionType, StreamPreview}
 import io.youi.net.URL
 
 case class SearchQuery(filters: List[SearchFilter] = Nil) {
@@ -29,6 +28,9 @@ case class SearchQuery(filters: List[SearchFilter] = Nil) {
   }
   lazy val mentions: List[Mentioned] = filters.collect {
     case f: Mentioned => f
+  }
+  lazy val reactions: List[Reaction] = filters.collect {
+    case f: Reaction => f
   }
 
   def withFilter(filter: SearchFilter): SearchQuery = copy((filter :: filters).distinct)
@@ -93,6 +95,11 @@ object SearchQuery {
       add("mention", f.username, f.operator)
     }
 
+    // Reactions
+    query.reactions.foreach { f =>
+      add("reaction", f.reactionType.name, f.operator)
+    }
+
     u
   }
   def fromURL(url: URL): SearchQuery = {
@@ -133,7 +140,10 @@ object SearchQuery {
     val mentions = url.paramList("mention").map { s =>
       Mentioned(s.op, s.value)
     }
-    val filters = scope :: streams ::: text ::: tags ::: creators ::: messageIds ::: mentions
+    val reactions = url.paramList("reaction").map { s =>
+      Reaction(s.op, ReactionType(s.value))
+    }
+    val filters = scope :: streams ::: text ::: tags ::: creators ::: messageIds ::: mentions ::: reactions
 
     SearchQuery(filters)
   }

@@ -1,7 +1,7 @@
 package io.cour.query
 
 import com.outr.arango.Id
-import io.cour.model.{FilterOperator, MessagePreview, StreamPreview}
+import io.cour.model.{FilterOperator, MessagePreview, ReactionType, StreamPreview}
 
 sealed trait SearchFilter {
   def operator: FilterOperator
@@ -36,6 +36,10 @@ object SearchFilter {
   }
 
   case class Mentioned(operator: FilterOperator, username: String) extends SearchFilter {
+    override def changeOperator(operator: FilterOperator): SearchFilter = copy(operator = operator)
+  }
+
+  case class Reaction(operator: FilterOperator, reactionType: ReactionType) extends SearchFilter {
     override def changeOperator(operator: FilterOperator): SearchFilter = copy(operator = operator)
   }
 }
