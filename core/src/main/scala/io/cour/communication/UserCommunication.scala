@@ -15,6 +15,8 @@ trait UserCommunication {
 
   def logOut(): Future[Unit]
 
+  def updateStatus(focused: Boolean): Future[Unit]
+
   def profile(): Future[Profile]
 
   def changePassword(currentPassword: Option[String], newPassword: String): Future[Either[ErrorResult, Unit]]

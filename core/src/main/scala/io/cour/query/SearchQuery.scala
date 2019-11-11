@@ -1,9 +1,10 @@
 package io.cour.query
 
+import com.outr.arango.Id
 import io.cour.model.{FilterOperator, MessagePreview, ReactionType, StreamPreview}
 import io.youi.net.URL
 
-case class SearchQuery(filters: List[SearchFilter] = Nil) {
+case class SearchQuery(filters: List[SearchFilter], focusMessageId: Option[Id[MessagePreview]]) {
   def apply(url: URL): URL = SearchQuery.toURL(this, url)
 
   import SearchFilter._
@@ -33,13 +34,24 @@ case class SearchQuery(filters: List[SearchFilter] = Nil) {
     case f: Reaction => f
   }
 
-  def withFilter(filter: SearchFilter): SearchQuery = copy((filter :: filters).distinct)
-  def withoutFilter(filter: SearchFilter): SearchQuery = copy(filters.filterNot(_ == filter))
-  def withoutFilters(filters: SearchFilter*): SearchQuery = copy(this.filters.filterNot(filters.contains))
+  lazy val singleStream: Option[StreamId] = streams match {
+    case streamId :: Nil if text.isEmpty && tags.isEmpty && creators.isEmpty && messageIds.isEmpty && mentions.isEmpty && reactions.isEmpty => Some(streamId)
+    case _ => None
+  }
+
+  def withFilter(filter: SearchFilter): SearchQuery = copy((filter :: filters).distinct, None)
+  def withoutFilter(filter: SearchFilter): SearchQuery = copy(filters.filterNot(_ == filter), None)
+  def withoutFilters(filters: SearchFilter*): SearchQuery = copy(this.filters.filterNot(filters.contains), None)
   def replace(current: SearchFilter, replacement: SearchFilter): SearchQuery = copy(filters.map {
     case f if f == current => replacement
     case f => f
-  })
+  }, None)
+  def focus(messageId: Id[MessagePreview], streamId: Option[Id[StreamPreview]]): SearchQuery = {
+    val scope = filters.collectFirst {
+      case f: Scope => f
+    }
+    SearchQuery(List(scope, streamId.map(StreamId(FilterOperator.Include, _))).flatten, Some(messageId))
+  }
 }
 
 object SearchQuery {
@@ -100,6 +112,11 @@ object SearchQuery {
       add("reaction", f.reactionType.name, f.operator)
     }
 
+    // Focus Message Id
+    query.focusMessageId.foreach { id =>
+      u = u.withParam("focus", id.value)
+    }
+
     u
   }
   def fromURL(url: URL): SearchQuery = {
@@ -144,7 +161,8 @@ object SearchQuery {
       Reaction(s.op, ReactionType(s.value))
     }
     val filters = scope :: streams ::: text ::: tags ::: creators ::: messageIds ::: mentions ::: reactions
+    val focus = url.param("focus").map(MessagePreview.id)
 
-    SearchQuery(filters)
+    SearchQuery(filters, focus)
   }
 }
