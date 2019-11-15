@@ -10,4 +10,6 @@ trait BrowserCommunication {
   def notify(message: MessagePreview): Future[Unit]
 
   def refresh(): Future[Unit]
+
+  def reload(): Future[Unit]
 }
