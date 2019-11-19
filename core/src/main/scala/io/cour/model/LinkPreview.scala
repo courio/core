@@ -1,8 +1,6 @@
 package io.cour.model
 
-import com.outr.arango.Field
-
-import com.outr.arango.{DocumentModel, Id, Serialization}
+import com.outr.arango.{DocumentModel, Field, Id, Index, Serialization}
 import io.youi.net.URL
 
 case class LinkPreview(url: String,
@@ -33,6 +31,8 @@ object LinkPreview extends DocumentModel[LinkPreview] {
   val created: Field[Long] = Field[Long]("created")
   val modified: Field[Long] = Field[Long]("modified")
   val _id: Field[com.outr.arango.Id[io.cour.model.LinkPreview]] = Field[com.outr.arango.Id[io.cour.model.LinkPreview]]("_id")
+
+  override def indexes: List[Index] = url.index.persistent(unique = true) :: index(created, modified)
 
   override val collectionName: String = "linkPreviews"
   override implicit val serialization: Serialization[LinkPreview] = Serialization.auto[LinkPreview]

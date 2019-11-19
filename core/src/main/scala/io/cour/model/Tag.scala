@@ -1,8 +1,6 @@
 package io.cour.model
 
-import com.outr.arango.Field
-
-import com.outr.arango.{DocumentModel, Id, Serialization}
+import com.outr.arango.{DocumentModel, Field, Id, Index, Serialization}
 
 case class Tag(created: Long = System.currentTimeMillis(),
                modified: Long = System.currentTimeMillis(),
@@ -16,6 +14,8 @@ object Tag extends DocumentModel[Tag] {
   val _id: Field[com.outr.arango.Id[io.cour.model.Tag]] = Field[com.outr.arango.Id[io.cour.model.Tag]]("_id")
 
   def apply(name: String): Tag = Tag(_id = id(name.toLowerCase))
+
+  override def indexes: List[Index] = index(created, modified)
 
   override val collectionName: String = "tags"
   override implicit val serialization: Serialization[Tag] = Serialization.auto[Tag]

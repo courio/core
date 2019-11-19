@@ -1,8 +1,6 @@
 package io.cour.model
 
-import com.outr.arango.Field
-
-import com.outr.arango.{DocumentModel, Id, Serialization}
+import com.outr.arango.{DocumentModel, Field, Id, Index, Serialization}
 
 case class Group(label: String,
                  description: Option[String] = None,
@@ -16,6 +14,8 @@ object Group extends DocumentModel[Group] {
   val created: Field[Long] = Field[Long]("created")
   val modified: Field[Long] = Field[Long]("modified")
   val _id: Field[com.outr.arango.Id[io.cour.model.Group]] = Field[com.outr.arango.Id[io.cour.model.Group]]("_id")
+
+  override def indexes: List[Index] = label.index.persistent(unique = true) :: index(created, modified)
 
   override val collectionName: String = "groups"
   override implicit val serialization: Serialization[Group] = Serialization.auto[Group]
