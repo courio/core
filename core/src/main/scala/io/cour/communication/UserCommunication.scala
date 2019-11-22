@@ -1,6 +1,7 @@
 package io.cour.communication
 
-import io.cour.model.{ErrorResult, Profile}
+import com.outr.arango.Id
+import io.cour.model.{AliasPreview, ErrorResult, Profile}
 
 import scala.concurrent.Future
 
@@ -22,4 +23,8 @@ trait UserCommunication {
   def changePassword(currentPassword: Option[String], newPassword: String): Future[Either[ErrorResult, Unit]]
 
   def agreeToEula(): Future[Unit]
+
+  def blockAlias(aliasId: Id[AliasPreview]): Future[Unit]
+
+  def unblockAlias(aliasId: Id[AliasPreview]): Future[Unit]
 }
