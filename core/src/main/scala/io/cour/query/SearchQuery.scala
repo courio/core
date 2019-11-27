@@ -1,10 +1,10 @@
 package io.cour.query
 
 import com.outr.arango.Id
-import io.cour.model.{FilterOperator, MessagePreview, ReactionType, StreamPreview}
+import io.cour.model.{CachedMessage, FilterOperator, ReactionType, StreamPreview}
 import io.youi.net.URL
 
-case class SearchQuery(filters: List[SearchFilter], focusMessageId: Option[Id[MessagePreview]]) {
+case class SearchQuery(filters: List[SearchFilter], focusMessageId: Option[Id[CachedMessage]]) {
   def apply(url: URL): URL = SearchQuery.toURL(this, url)
 
   import SearchFilter._
@@ -46,7 +46,7 @@ case class SearchQuery(filters: List[SearchFilter], focusMessageId: Option[Id[Me
     case f if f == current => replacement
     case f => f
   }, None)
-  def focus(messageId: Id[MessagePreview], streamId: Option[Id[StreamPreview]]): SearchQuery = {
+  def focus(messageId: Id[CachedMessage], streamId: Option[Id[StreamPreview]]): SearchQuery = {
     val scope = filters.collectFirst {
       case f: Scope => f
     }
@@ -152,7 +152,7 @@ object SearchQuery {
       CreatorUsername(s.op, s.value)
     }
     val messageIds = url.paramList("messageId").map { s =>
-      MessageId(s.op, MessagePreview.id(s.value))
+      MessageId(s.op, CachedMessage.id(s.value))
     }
     val mentions = url.paramList("mention").map { s =>
       Mentioned(s.op, s.value)
@@ -161,7 +161,7 @@ object SearchQuery {
       Reaction(s.op, ReactionType(s.value))
     }
     val filters = scope :: streams ::: text ::: tags ::: creators ::: messageIds ::: mentions ::: reactions
-    val focus = url.param("focus").map(MessagePreview.id)
+    val focus = url.param("focus").map(CachedMessage.id)
 
     SearchQuery(filters, focus)
   }

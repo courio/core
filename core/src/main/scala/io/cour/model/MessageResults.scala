@@ -1,5 +1,6 @@
 package io.cour.model
 
+@deprecated
 case class MessageResults(offset: Int,
                           limit: Int,
                           total: Int,
