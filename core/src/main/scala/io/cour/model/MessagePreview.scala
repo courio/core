@@ -5,7 +5,6 @@ import io.circe.Json
 import io.youi.Unique
 import io.youi.net.URL
 
-@deprecated(message = "Use CachedMessage instead")
 case class MessagePreview(id: Id[MessagePreview],
                           streamId: Id[StreamPreview],
                           streamLabel: String,
