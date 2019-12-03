@@ -2,4 +2,4 @@ package io.cour.model
 
 import com.outr.arango.Id
 
-case class SourcePreview(id: Id[SourcePreview], name: String)
+case class SourcePreview(organizationId: Id[OrganizationPreview], id: Id[SourcePreview], name: String)
