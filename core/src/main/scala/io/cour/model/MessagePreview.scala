@@ -43,7 +43,7 @@ object MessagePreview {
     sourceLabel = "",
     organizationId = Id("", ""),
     organizationLabel = "",
-    creator = NamedCredential(Credentialed(Id("", "")), "", None, 0L),
+    creator = NamedCredential(Credentialed(Id("", "")), "", None, 0L, URL(), URL()),
     tags = Nil,
     text = "",
     content = Json.obj(),

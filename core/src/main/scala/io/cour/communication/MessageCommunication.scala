@@ -28,7 +28,13 @@ trait MessageCommunication {
 
   def hierarchy(): Future[Hierarchy]
 
-  def aliases(filter: String, limit: Int): Future[List[AliasPreview]]
+  def aliases(filter: String, limit: Int): Future[List[NamedCredential[AliasPreview]]]
+
+  def publicStreams(filter: String, limit: Int): Future[List[StreamPreview]]
+
+  def subscribedStreams(filter: String, limit: Int): Future[List[StreamPreview]]
+
+  def streamById(id: Id[StreamPreview]): Future[StreamPreview]
 
   def streamPermissions(id: Id[StreamPreview]): Future[List[PermissionAndUsername]]
 
