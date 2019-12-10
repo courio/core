@@ -11,6 +11,8 @@ case class StreamPreview(sourceId: Id[SourcePreview],
                          groupPermissions: List[Permission[Group]] = Nil,
                          customLabel: Option[String],
                          notifications: Option[Boolean],
+                         directMessage: Boolean,
+                         lastMessage: Long,
                          _id: Id[StreamPreview]) {
   lazy val publicRules: Set[Rule] = groupPermissions.filter(_.id == Credentialed.Public).map(_.rule).toSet
   lazy val allRules: Set[Rule] = rules ++ publicRules
