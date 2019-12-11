@@ -17,4 +17,14 @@ case class Hierarchy(organizations: List[OrganizationPreview],
     val contains = streams.filter(_.label.toLowerCase.contains(f))
     (exact ::: startsWith ::: contains).take(limit)
   }
+  def update(streamId: Id[StreamPreview], lastMessage: Long): Hierarchy = {
+    val updated = streams.map { s =>
+      if (s._id == streamId) {
+        s.copy(lastMessage = math.max(s.lastMessage, lastMessage))
+      } else {
+        s
+      }
+    }.sortBy(- _.lastMessage)
+    copy(streams = updated)
+  }
 }
