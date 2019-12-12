@@ -15,6 +15,8 @@ trait MessageCommunication {
 
   def sendDirect(username: String, message: String, resourceIds: List[Id[ResourcePreview]]): Future[Either[ErrorResult, Unit]]
 
+  def markRead(streamIds: List[Id[StreamPreview]], lastSeen: Long): Future[Unit]
+
   def modifyMessage(id: Id[MessagePreview], message: String, resourceIds: List[Id[ResourcePreview]]): Future[Either[ErrorResult, Unit]]
 
   def addReaction(messageId: Id[MessagePreview], `type`: ReactionType): Future[Unit]
