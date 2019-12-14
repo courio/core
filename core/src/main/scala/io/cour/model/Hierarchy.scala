@@ -27,4 +27,24 @@ case class Hierarchy(organizations: List[OrganizationPreview],
     }.sortBy(- _.lastMessage)
     copy(streams = updated)
   }
+  def markRead(streamIds: Set[Id[StreamPreview]]): Hierarchy = {
+    val updated = streams.map { s =>
+      if (streamIds.contains(s._id)) {
+        s.copy(unread = 0, lastSeen = s.lastMessage)
+      } else {
+        s
+      }
+    }
+    copy(streams = updated)
+  }
+  def incrementUnread(streamId: Id[StreamPreview], lastMessage: Long): Hierarchy = {
+    val updated = streams.map { s =>
+      if (s._id == streamId) {
+        s.copy(unread = s.unread + 1, lastMessage = math.max(s.lastMessage, lastMessage))
+      } else {
+        s
+      }
+    }.sortBy(- _.lastMessage)
+    copy(streams = updated)
+  }
 }
