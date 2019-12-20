@@ -1,7 +1,7 @@
 package io.cour.communication
 
 import com.outr.arango.Id
-import io.cour.model.{AliasPreview, ErrorResult, Profile}
+import io.cour.model.{AliasPreview, ErrorResult, NamedCredential, Profile}
 
 import scala.concurrent.Future
 
@@ -26,5 +26,7 @@ trait UserCommunication {
 
   def blockAlias(aliasId: Id[AliasPreview]): Future[Unit]
 
-  def unblockAlias(aliasId: Id[AliasPreview]): Future[Unit]
+  def unblockAliases(aliasIds: List[Id[AliasPreview]]): Future[Unit]
+
+  def blockedAliases(): Future[List[NamedCredential[AliasPreview]]]
 }
