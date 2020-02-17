@@ -25,9 +25,6 @@ trait MessageCommunication {
 
   def deleteMessage(id: Id[MessagePreview]): Future[Either[ErrorResult, Unit]]
 
-  @deprecated("Use hierarchy and/or aliases")
-  def streamsAndAliases(filter: String, streamsMax: Int, aliasesMax: Int): Future[StreamsAndAliases]
-
   def hierarchy(): Future[Hierarchy]
 
   def aliases(filter: String, limit: Int): Future[List[NamedCredential[AliasPreview]]]
