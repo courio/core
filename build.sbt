@@ -27,8 +27,8 @@ developers in ThisBuild := List(
   Developer(id="darkfrog", name="Matt Hicks", email="matt@matthicks.com", url=url("http://matthicks.com"))
 )
 
-val youiVersion = "0.12.14-SNAPSHOT"
-val scarangoVersion = "2.3.2"
+val youiVersion = "0.12.14"
+val scarangoVersion = "2.3.3"
 
 lazy val root = project.in(file("."))
   .aggregate(coreJS, coreJVM)
