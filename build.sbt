@@ -28,7 +28,7 @@ developers in ThisBuild := List(
 )
 
 val youiVersion = "0.12.14"
-val scarangoVersion = "2.3.3"
+val scarangoVersion = "2.3.4"
 
 lazy val root = project.in(file("."))
   .aggregate(coreJS, coreJVM)
