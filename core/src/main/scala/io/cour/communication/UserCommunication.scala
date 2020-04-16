@@ -6,6 +6,8 @@ import io.cour.model.{AliasPreview, ErrorResult, NamedCredential, Profile}
 import scala.concurrent.Future
 
 trait UserCommunication {
+  def createProfile(username: String, fullName: Option[String], password: String, base64: Option[String]): Future[Either[ErrorResult, Profile]]
+
   def updateProfile(username: String, fullName: String): Future[Either[ErrorResult, Profile]]
 
   def updateProfilePicture(base64: String): Future[Either[ErrorResult, Unit]]
