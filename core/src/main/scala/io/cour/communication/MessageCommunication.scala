@@ -11,12 +11,20 @@ trait MessageCommunication {
 
   def verifyAvailableSpace(sizeInBytes: Long): Future[Boolean]
 
+  def sendMessage(target: Either[Id[StreamPreview], Id[AliasPreview]],
+                  messageId: Id[MessagePreview],
+                  body: String,
+                  resources: List[Id[ResourcePreview]]): Future[Either[ErrorResult, MessagePreview]]
+
+  @deprecated("Use sendMessage instead")
   def send(streamId: Id[StreamPreview], message: String, resourceIds: List[Id[ResourcePreview]]): Future[Either[ErrorResult, Unit]]
 
+  @deprecated("Use sendMessage instead")
   def sendDirect(username: String, message: String, resourceIds: List[Id[ResourcePreview]]): Future[Either[ErrorResult, Unit]]
 
   def markRead(streamIds: List[Id[StreamPreview]], lastSeen: Long): Future[Unit]
 
+  @deprecated("Use sendMessage instead")
   def modifyMessage(id: Id[MessagePreview], message: String, resourceIds: List[Id[ResourcePreview]]): Future[Either[ErrorResult, Unit]]
 
   def addReaction(messageId: Id[MessagePreview], `type`: ReactionType): Future[Unit]
