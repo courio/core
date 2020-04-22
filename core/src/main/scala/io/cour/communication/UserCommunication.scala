@@ -12,6 +12,10 @@ trait UserCommunication {
 
   def updateProfilePicture(base64: String): Future[Either[ErrorResult, Unit]]
 
+  def updateEmailAddress(email: String): Future[Either[ErrorResult, Unit]]
+
+  def verifyEmailAddress(token: String): Future[Either[ErrorResult, String]]
+
   def addFCMToken(token: String): Future[Unit]
 
   def logIn(username: String, password: String): Future[Either[ErrorResult, Profile]]
