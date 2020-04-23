@@ -11,6 +11,8 @@ trait MessageCommunication {
 
   def verifyAvailableSpace(sizeInBytes: Long): Future[Boolean]
 
+  def gifSearch(query: String, offset: Int, limit: Int): Future[GIFResults]
+
   def send(target: Either[Id[StreamPreview], Id[AliasPreview]],
            messageId: Id[MessagePreview],
            body: String,
