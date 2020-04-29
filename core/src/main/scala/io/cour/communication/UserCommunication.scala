@@ -25,7 +25,7 @@ trait UserCommunication {
 
   def forgotPassword(username: String): Future[Either[ErrorResult, Unit]]
 
-  def resetPassword(token: String, newPassword: String): Future[Either[ErrorResult, Profile]]
+  def resetPassword(username: String, token: String, newPassword: String): Future[Either[ErrorResult, Profile]]
 
   def logOut(): Future[Unit]
 
