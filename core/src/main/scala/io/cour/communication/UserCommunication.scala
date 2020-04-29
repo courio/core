@@ -10,6 +10,9 @@ trait UserCommunication {
 
   def updateProfile(username: String, fullName: String): Future[Either[ErrorResult, Profile]]
 
+  def updatePicture(fileName: String): Future[Either[ErrorResult, Unit]]
+
+  @deprecated("Use updatePicture")
   def updateProfilePicture(base64: String): Future[Either[ErrorResult, Unit]]
 
   def updateEmailAddress(email: String): Future[Either[ErrorResult, Unit]]
@@ -19,6 +22,10 @@ trait UserCommunication {
   def addFCMToken(token: String): Future[Unit]
 
   def logIn(username: String, password: String): Future[Either[ErrorResult, Profile]]
+
+  def forgotPassword(username: String): Future[Either[ErrorResult, Unit]]
+
+  def resetPassword(token: String, newPassword: String): Future[Either[ErrorResult, Profile]]
 
   def logOut(): Future[Unit]
 
