@@ -13,13 +13,21 @@ trait MessageCommunication {
 
   def gifSearch(query: String, offset: Int, limit: Int): Future[GIFResults]
 
+  def apply(target: Either[Id[StreamPreview], Id[AliasPreview]],
+            messageId: Id[MessagePreview],
+            body: String,
+            resourceIds: List[Id[ResourcePreview]],
+            fileNames: List[String],
+            images: List[Image]): Future[Either[ErrorResult, MessagePreview]]
+
+  @deprecated("Use apply instead")
   def send(target: Either[Id[StreamPreview], Id[AliasPreview]],
            messageId: Id[MessagePreview],
            body: String,
            resources: List[Id[ResourcePreview]],
            files: List[String]): Future[Either[ErrorResult, MessagePreview]]
 
-  @deprecated("Use send instead")
+  @deprecated("Use apply instead")
   def sendMessage(target: Either[Id[StreamPreview], Id[AliasPreview]],
                   messageId: Id[MessagePreview],
                   body: String,

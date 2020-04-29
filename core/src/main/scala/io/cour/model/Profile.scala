@@ -19,6 +19,7 @@ case class Profile(userId: Id[Profile],
   lazy val aliasIds: Set[Id[AliasPreview]] = aliases.map(_.id).toSet
 
   def isEmpty: Boolean = userId.value == "empty"
+  def nonEmpty: Boolean = !isEmpty
 }
 
 object Profile {
