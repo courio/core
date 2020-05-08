@@ -1,7 +1,8 @@
 package io.cour.communication
 
 import com.outr.arango.Id
-import io.cour.model.{AliasPreview, ErrorResult, NamedCredential, Profile}
+import io.cour.model.{AliasPreview, ErrorResult, NamedCredential, Profile, TwitterAccountPreview}
+import io.youi.net.URL
 
 import scala.concurrent.Future
 
@@ -42,4 +43,10 @@ trait UserCommunication {
   def unblockAliases(aliasIds: List[Id[AliasPreview]]): Future[Unit]
 
   def blockedAliases(): Future[List[NamedCredential[AliasPreview]]]
+
+  def twitterAuthorizationLink(): Future[URL]
+
+  def twitterAccounts(): Future[List[TwitterAccountPreview]]
+
+  def deleteTwitterAccount(id: Id[TwitterAccountPreview]): Future[Either[ErrorResult, Unit]]
 }
