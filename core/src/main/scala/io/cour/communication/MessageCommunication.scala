@@ -13,6 +13,7 @@ trait MessageCommunication {
 
   def gifSearch(query: String, offset: Int, limit: Int): Future[GIFResults]
 
+  @deprecated("Use send instead")
   def apply(target: Either[Id[StreamPreview], Id[AliasPreview]],
             messageId: Id[MessagePreview],
             body: String,
@@ -20,18 +21,13 @@ trait MessageCommunication {
             fileNames: List[String],
             images: List[Image]): Future[Either[ErrorResult, MessagePreview]]
 
-  @deprecated("Use apply instead")
   def send(target: Either[Id[StreamPreview], Id[AliasPreview]],
            messageId: Id[MessagePreview],
            body: String,
-           resources: List[Id[ResourcePreview]],
-           files: List[String]): Future[Either[ErrorResult, MessagePreview]]
-
-  @deprecated("Use apply instead")
-  def sendMessage(target: Either[Id[StreamPreview], Id[AliasPreview]],
-                  messageId: Id[MessagePreview],
-                  body: String,
-                  resources: List[Id[ResourcePreview]]): Future[Either[ErrorResult, MessagePreview]]
+           resourceIds: List[Id[ResourcePreview]],
+           fileNames: List[String],
+           images: List[Image],
+           videos: List[Video]): Future[Either[ErrorResult, MessagePreview]]
 
   def markRead(streamIds: List[Id[StreamPreview]], lastSeen: Long): Future[Unit]
 
