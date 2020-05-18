@@ -29,4 +29,9 @@ case class NamedCredential[T](id: Id[T],
     case Some(n) => s"$username ($n)"
     case None => username
   }
+
+  override def equals(obj: Any): Boolean = obj match {
+    case that: NamedCredential[_] => this.id._id == that.id._id
+    case _ => false
+  }
 }

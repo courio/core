@@ -7,6 +7,9 @@ import io.youi.net.URL
 import scala.concurrent.Future
 
 trait UserCommunication {
+  def createAccount(username: String, fullName: Option[String], email: Option[String], password: String, fileName: Option[String]): Future[Either[ErrorResult, Profile]]
+
+  @deprecated("Use createAccount")
   def createProfile(username: String, fullName: Option[String], password: String, base64: Option[String]): Future[Either[ErrorResult, Profile]]
 
   def updateProfile(username: String, fullName: String): Future[Either[ErrorResult, Profile]]
@@ -21,6 +24,8 @@ trait UserCommunication {
   def verifyEmailAddress(token: String): Future[Either[ErrorResult, String]]
 
   def addFCMToken(token: String): Future[Unit]
+
+  def removeFCMToken(token: String): Future[Unit]
 
   def logIn(username: String, password: String): Future[Either[ErrorResult, Profile]]
 

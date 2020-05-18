@@ -45,7 +45,10 @@ trait MessageCommunication {
 
   def subscribedStreams(filter: String, limit: Int): Future[List[StreamPreview]]
 
+  @deprecated("Use stream instead")
   def streamById(id: Id[StreamPreview]): Future[StreamPreview]
+
+  def stream(id: Id[StreamPreview]): Future[Either[ErrorResult, StreamPreview]]
 
   def streamPermissions(id: Id[StreamPreview]): Future[List[PermissionAndUsername]]
 
