@@ -6,7 +6,7 @@ case class Hierarchy(organizations: List[OrganizationPreview],
                      sources: List[SourcePreview],
                      streams: List[StreamPreview],
                      recentStreams: List[Id[StreamPreview]] = Nil,
-                     frequentStreams: List[Id[StreamPreview]] = Nil) {
+                     frequentStreams: List[FrequentStream] = Nil) {
   lazy val organizationById: Map[Id[OrganizationPreview], OrganizationPreview] = organizations.map(o => o.id -> o).toMap
   lazy val sourceById: Map[Id[SourcePreview], SourcePreview] = sources.map(s => s.id -> s).toMap
   lazy val streamById: Map[Id[StreamPreview], StreamPreview] = streams.map(s => s._id -> s).toMap
@@ -51,3 +51,4 @@ case class Hierarchy(organizations: List[OrganizationPreview],
     copy(streams = updated)
   }
 }
+

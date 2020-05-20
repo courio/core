@@ -5,6 +5,27 @@ import io.circe.{Decoder, DecodingFailure, Encoder, HCursor, Json}
 
 sealed trait ReactionType {
   lazy val name: String = getClass.getSimpleName.replaceAllLiterally("$", "").toLowerCase
+
+  import ReactionType._
+
+  def sentence(count: Int): String = this match {
+    case Like | Dislike | Love => {
+      val block = if (count == 1) s"person ${name}s" else s"people $name"
+      s"$count $block this"
+    }
+    case Funny | Sad | Interesting | Boring | Inappropriate => {
+      val block = if (count == 1) "person" else "people"
+      s"$count $block found this $name"
+    }
+    case Wow => {
+      val block = if (count == 1) "person" else "people"
+      s"$count $block thought $name"
+    }
+    case Angry => {
+      val block = if (count == 1) "person" else "people"
+      s"$count $block were $name by this"
+    }
+  }
 }
 
 object ReactionType {
