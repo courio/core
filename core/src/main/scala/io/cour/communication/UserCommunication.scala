@@ -21,7 +21,10 @@ trait UserCommunication {
 
   def updateEmailAddress(email: String): Future[Either[ErrorResult, Unit]]
 
+  @deprecated("Use confirmEmailAddress instead")
   def verifyEmailAddress(token: String): Future[Either[ErrorResult, String]]
+
+  def confirmEmailAddress(token: String): Future[Either[ErrorResult, Profile]]
 
   def addFCMToken(token: String): Future[Unit]
 
