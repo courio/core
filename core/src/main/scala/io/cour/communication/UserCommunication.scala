@@ -9,20 +9,11 @@ import scala.concurrent.Future
 trait UserCommunication {
   def createAccount(username: String, fullName: Option[String], email: Option[String], password: String, fileName: Option[String]): Future[Either[ErrorResult, Profile]]
 
-  @deprecated("Use createAccount")
-  def createProfile(username: String, fullName: Option[String], password: String, base64: Option[String]): Future[Either[ErrorResult, Profile]]
-
   def updateProfile(username: String, fullName: String): Future[Either[ErrorResult, Profile]]
 
   def updatePicture(fileName: String): Future[Either[ErrorResult, Unit]]
 
-  @deprecated("Use updatePicture")
-  def updateProfilePicture(base64: String): Future[Either[ErrorResult, Unit]]
-
   def updateEmailAddress(email: String): Future[Either[ErrorResult, Unit]]
-
-  @deprecated("Use confirmEmailAddress instead")
-  def verifyEmailAddress(token: String): Future[Either[ErrorResult, String]]
 
   def confirmEmailAddress(token: String): Future[Either[ErrorResult, Profile]]
 
