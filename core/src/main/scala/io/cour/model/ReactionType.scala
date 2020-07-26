@@ -4,7 +4,7 @@ import io.circe.Decoder.Result
 import io.circe.{Decoder, DecodingFailure, Encoder, HCursor, Json}
 
 sealed trait ReactionType {
-  lazy val name: String = getClass.getSimpleName.replaceAllLiterally("$", "").toLowerCase
+  lazy val name: String = getClass.getSimpleName.replace("$", "").toLowerCase
 
   import ReactionType._
 

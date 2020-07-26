@@ -1,6 +1,6 @@
 package io.cour
 
-import io.youi.net._
+import _root_.io.youi.net._
 
 object Paths {
   lazy val upload: Path = path"/upload"

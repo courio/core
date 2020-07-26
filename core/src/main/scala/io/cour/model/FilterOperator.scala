@@ -1,7 +1,7 @@
 package io.cour.model
 
 sealed trait FilterOperator {
-  override val toString: String = getClass.getSimpleName.toLowerCase.replaceAllLiterally("$", "")
+  override val toString: String = getClass.getSimpleName.toLowerCase.replace("$", "")
 }
 
 object FilterOperator {
