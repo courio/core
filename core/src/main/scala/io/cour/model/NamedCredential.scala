@@ -35,4 +35,6 @@ case class NamedCredential[T](id: Id[T],
     case that: NamedCredential[_] => this.id._id == that.id._id
     case _ => false
   }
+
+  def credentialed: NamedCredential[Credentialed] = this.asInstanceOf[NamedCredential[Credentialed]]
 }
