@@ -15,7 +15,7 @@ case class MessagePreview(id: Id[MessagePreview],
                           content: MessageContent,
                           mentions: List[NamedCredential[Credentialed]],
                           reactions: List[ReactionPreview],
-                          references: MessageReferences,
+                          references: MessageReferencePreviews,
                           edited: Boolean,
                           created: Long,
                           modified: Long) {

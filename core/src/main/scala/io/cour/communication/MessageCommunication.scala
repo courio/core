@@ -7,7 +7,10 @@ import io.cour.query.SearchQuery
 import scala.concurrent.Future
 
 trait MessageCommunication {
-  def query(query: SearchQuery, offset: Int, limit: Int): Future[MessageResults]
+  def query(query: SearchQuery,
+            offset: Int,
+            limit: Int,
+            lastUpdated: Option[Long]): Future[MessageResults]
 
   def verifyAvailableSpace(sizeInBytes: Long): Future[Boolean]
 
