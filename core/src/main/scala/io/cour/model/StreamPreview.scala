@@ -20,6 +20,8 @@ case class StreamPreview(sourceId: Id[SourcePreview],
   lazy val publicRules: Set[Rule] = groupPermissions.filter(_.id == Credentialed.Public).map(_.rule).toSet
   lazy val allRules: Set[Rule] = rules ++ publicRules
 
+  lazy val personalizedLabel: String = customLabel.getOrElse(label)
+
   lazy val isAdmin: Boolean = allRules.contains(Rule.Administrate)
   lazy val canWrite: Boolean = allRules.contains(Rule.Write) || isAdmin
   lazy val canRead: Boolean = allRules.contains(Rule.Read) || canWrite
