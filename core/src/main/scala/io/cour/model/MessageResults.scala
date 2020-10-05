@@ -14,10 +14,10 @@ case class MessageResults(offset: Int,
   def updateWith(results: MessageResults): MessageResults = if (results.update) {
     var m = messages
     // Remove deleted
-    m = m.filterNot(mp => results.deleted.contains(mp.id))
+    m = m.filterNot(mp => results.deleted.contains(mp._id))
     // Remove replaced
-    val newIds = results.messages.map(_.id).toSet
-    m = m.filterNot(mp => newIds.contains(mp.id))
+    val newIds = results.messages.map(_._id).toSet
+    m = m.filterNot(mp => newIds.contains(mp._id))
     // Add new messages
     m = m ::: results.messages
     // Sort
