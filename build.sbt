@@ -2,7 +2,7 @@ import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
 name := "courio-core"
 organization in ThisBuild := "io.cour"
-version in ThisBuild := "1.0.24-SNAPSHOT"
+version in ThisBuild := "1.0.24"
 scalaVersion in ThisBuild := "2.13.4"
 
 resolvers in ThisBuild ++= Seq(
@@ -28,7 +28,7 @@ developers in ThisBuild := List(
 )
 
 val youiVersion = "0.13.18"
-val scarangoVersion = "2.4.2-SNAPSHOT"
+val scarangoVersion = "2.4.2"
 
 lazy val root = project.in(file("."))
   .aggregate(coreJS, coreJVM)
