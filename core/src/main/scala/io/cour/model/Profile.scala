@@ -15,6 +15,7 @@ case class Profile(userId: Id[Profile],
                    hasPassword: Boolean,
                    eulaAgreed: Boolean,
                    blockedAliasIds: Set[Id[AliasPreview]],
+                   theme: String = Theme.Dark,
                    lastModified: Long) {
   lazy val aliasIds: Set[Id[AliasPreview]] = aliases.map(_.id).toSet
 
@@ -36,6 +37,7 @@ object Profile {
     hasPassword = false,
     eulaAgreed = false,
     blockedAliasIds = Set.empty,
+    theme = Theme.Dark,
     lastModified = 0L
   )
 
