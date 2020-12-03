@@ -2,7 +2,7 @@ import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
 name := "courio-core"
 organization in ThisBuild := "io.cour"
-version in ThisBuild := "1.0.25-SNAPSHOT"
+version in ThisBuild := "1.0.25"
 scalaVersion in ThisBuild := "2.13.4"
 
 resolvers in ThisBuild ++= Seq(
