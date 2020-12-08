@@ -22,16 +22,17 @@ case class Hierarchy(organizations: List[OrganizationPreview],
     val contains = streams.filter(_.label.toLowerCase.contains(f))
     (exact ::: startsWith ::: contains).take(limit)
   }
-  def update(streamId: Id[StreamPreview], lastMessage: Long): Hierarchy = {
+  def update(streamId: Id[StreamPreview])(f: StreamPreview => StreamPreview): Hierarchy = {
     val updated = streams.map { s =>
       if (s._id == streamId) {
-        s.copy(lastMessage = math.max(s.lastMessage, lastMessage))
+        f(s)
       } else {
         s
       }
     }.sortBy(- _.lastMessage)
     copy(streams = updated)
   }
+  def update(streamId: Id[StreamPreview], lastMessage: Long): Hierarchy = update(streamId)(s => s.copy(lastMessage = math.max(s.lastMessage, lastMessage)))
   def markRead(streamIds: Set[Id[StreamPreview]]): Hierarchy = {
     val updated = streams.map { s =>
       if (streamIds.contains(s._id)) {
