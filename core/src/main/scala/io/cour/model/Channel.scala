@@ -4,7 +4,7 @@ import com.outr.arango.{Field, Id, Index, IndexType, Serialization}
 import io.cour.query.SearchFilter
 
 case class Channel(label: String,
-                   aliasId: Id[AliasPreview],
+                   aliasId: Option[Id[AliasPreview]],
                    filters: List[SearchFilter],
                    scope: ChannelScope,
                    created: Long = System.currentTimeMillis(),
@@ -13,7 +13,7 @@ case class Channel(label: String,
 
 object Channel extends CourioModel[Channel] {
   val label: Field[String] = Field[String]("label")
-  val aliasId: Field[Id[AliasPreview]] = Field[Id[AliasPreview]]("aliasId")
+  val aliasId: Field[Option[Id[AliasPreview]]] = Field[Option[Id[AliasPreview]]]("aliasId")
   val filters: Field[List[SearchFilter]] = Field[List[SearchFilter]]("filters")
   val scope: Field[ChannelScope] = Field[ChannelScope]("scope")
 
