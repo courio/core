@@ -34,6 +34,10 @@ trait MessageCommunication {
 
   def removeFavorite(streamId: Id[StreamPreview]): Future[Either[ErrorResult, Unit]]
 
+  def saveChannel(channel: Channel): Future[Either[ErrorResult, Unit]]
+
+  def deleteChannel(channelId: Id[Channel]): Future[Either[ErrorResult, Unit]]
+
   def deleteMessage(id: Id[MessagePreview]): Future[Either[ErrorResult, Unit]]
 
   def hierarchy(): Future[Hierarchy]
