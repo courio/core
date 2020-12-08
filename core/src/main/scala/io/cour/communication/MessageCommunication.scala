@@ -30,6 +30,10 @@ trait MessageCommunication {
 
   def removeReaction(messageId: Id[MessagePreview], `type`: ReactionType): Future[Unit]
 
+  def addFavorite(streamId: Id[StreamPreview]): Future[Either[ErrorResult, Unit]]
+
+  def removeFavorite(streamId: Id[StreamPreview]): Future[Either[ErrorResult, Unit]]
+
   def deleteMessage(id: Id[MessagePreview]): Future[Either[ErrorResult, Unit]]
 
   def hierarchy(): Future[Hierarchy]
