@@ -68,7 +68,7 @@ object Emoji {
   val WorriedFace: Emoji = Emoji(name = "Worried Face", code = "😟", shortCodes = List(":worried:"))
   val SlightlyFrowningFace: Emoji = Emoji(name = "Slightly Frowning Face", code = "🙁", shortCodes = List())
   val FrowningFace: Emoji = Emoji(name = "Frowning Face", code = "☹️", shortCodes = List())
-  val FaceWithOpenMouth: Emoji = Emoji(name = "Face with Open Mouth", code = "😮", shortCodes = List(":open_mouth:"))
+  val FaceWithOpenMouth: Emoji = Emoji(name = "Face with Open Mouth", code = "😮", shortCodes = List(":open_mouth:", ":o", ":0"))
   val HushedFace: Emoji = Emoji(name = "Hushed Face", code = "😯", shortCodes = List(":hushed:"))
   val AstonishedFace: Emoji = Emoji(name = "Astonished Face", code = "😲", shortCodes = List(":astonished:"))
   val FlushedFace: Emoji = Emoji(name = "Flushed Face", code = "😳", shortCodes = List(":flushed:"))

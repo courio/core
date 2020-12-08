@@ -1,6 +1,7 @@
 package io.cour.model
 
 import com.outr.arango.Id
+import io.cour.query.SearchFilter
 
 case class Hierarchy(organizations: List[OrganizationPreview],
                      sources: List[SourcePreview],
@@ -13,6 +14,11 @@ case class Hierarchy(organizations: List[OrganizationPreview],
   lazy val streamById: Map[Id[StreamPreview], StreamPreview] = streams.map(s => s._id -> s).toMap
   lazy val unread: Int = streams.map(_.unread).sum
   lazy val favorites: List[StreamPreview] = streams.filter(_.favorite)
+
+  def channelByFilters(filters: List[SearchFilter]): Option[Channel] = {
+    val set = filters.toSet
+    channels.find(_.filtersSet == set)
+  }
 
   def sourcesByOrganization(id: Id[OrganizationPreview]): List[SourcePreview] = sources.filter(_.organizationId == id)
   def streamsBySource(id: Id[SourcePreview]): List[StreamPreview] = streams.filter(_.sourceId == id)

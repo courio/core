@@ -21,7 +21,7 @@ case class MessageResults(offset: Int,
     // Add new messages
     m = m ::: results.messages
     // Sort
-    m = m.sortBy(_.created)
+    m = m.sortBy(- _.created)
 
     MessageResults(
       offset = results.offset,

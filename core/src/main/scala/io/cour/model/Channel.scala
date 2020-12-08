@@ -9,7 +9,9 @@ case class Channel(label: String,
                    scope: ChannelScope,
                    created: Long = System.currentTimeMillis(),
                    modified: Long = System.currentTimeMillis(),
-                   _id: Id[Channel] = Channel.id()) extends CourioDocument[Channel]
+                   _id: Id[Channel] = Channel.id()) extends CourioDocument[Channel] {
+  lazy val filtersSet: Set[SearchFilter] = filters.toSet
+}
 
 object Channel extends CourioModel[Channel] {
   val label: Field[String] = Field[String]("label")
