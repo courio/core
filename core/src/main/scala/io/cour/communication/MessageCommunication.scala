@@ -52,6 +52,8 @@ trait MessageCommunication {
 
   def streamPermissions(id: Id[StreamPreview]): Future[List[PermissionAndUsername]]
 
+  def getOrCreateDirectStream(aliasId: Id[AliasPreview]): Future[Either[ErrorResult, Id[StreamPreview]]]
+
   def saveStream(streamId: Option[Id[StreamPreview]],
                  name: String,
                  description: Option[String],
