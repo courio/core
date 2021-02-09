@@ -16,6 +16,9 @@ trait MessageCommunication {
 
   def gifSearch(query: String, offset: Int, limit: Int): Future[GIFResults]
 
+  def sendMessage(streamId: Id[StreamPreview], messageId: Id[MessagePreview], messageParts: List[MessagePart]): Future[Either[ErrorResult, MessagePreview]]
+
+  @deprecated("use sendMessage instead")
   def send(target: Either[Id[StreamPreview], Id[AliasPreview]],
            messageId: Id[MessagePreview],
            body: String,
