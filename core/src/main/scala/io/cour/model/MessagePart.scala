@@ -14,4 +14,5 @@ object MessagePart {
   case class Link(raw: String, url: URL, name: String = "") extends MessagePart
   case class Mention(id: Id[Credentialed]) extends MessagePart
   case class Tag(tag: String) extends MessagePart
+  case class Resource(id: Id[ResourcePreview]) extends MessagePart
 }
