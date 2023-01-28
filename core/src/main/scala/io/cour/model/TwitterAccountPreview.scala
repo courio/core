@@ -1,7 +1,7 @@
 package io.cour.model
 
 import com.outr.arango.Id
-import io.youi.net.URL
+import spice.net.URL
 
 case class TwitterAccountPreview(screenName: String,
                                  name: Option[String],

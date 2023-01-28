@@ -2,7 +2,7 @@ package io.cour.query
 
 import com.outr.arango.Id
 import io.cour.model.{FilterOperator, MessagePreview, ReactionType, StreamPreview}
-import io.youi.net.URL
+import spice.net.URL
 
 case class SearchQuery(filters: List[SearchFilter], focusMessageId: Option[Id[MessagePreview]]) {
   def apply(url: URL): URL = SearchQuery.toURL(this, url)

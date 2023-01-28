@@ -1,7 +1,7 @@
 package io.cour.model
 
 import com.outr.arango.Id
-import io.youi.net.URL
+import spice.net.URL
 
 case class NamedCredential[T](id: Id[T],
                               username: String,
@@ -9,8 +9,8 @@ case class NamedCredential[T](id: Id[T],
                               lastModified: Long,
                               iconOverride: Option[URL] = None,
                               profileOverride: Option[URL] = None) {
-  lazy val icon: URL = iconOverride.getOrElse(URL(s"https://s3.us-west-1.wasabisys.com/courio/user/${id.value}-icon.png?m=$lastModified"))
-  lazy val profile: URL = profileOverride.getOrElse(URL(s"https://s3.us-west-1.wasabisys.com/courio/user/${id.value}-profile.png?m=$lastModified"))
+  lazy val icon: URL = iconOverride.getOrElse(URL.parse(s"https://s3.us-west-1.wasabisys.com/courio/user/${id.value}-icon.png?m=$lastModified"))
+  lazy val profile: URL = profileOverride.getOrElse(URL.parse(s"https://s3.us-west-1.wasabisys.com/courio/user/${id.value}-profile.png?m=$lastModified"))
 
   def include(filter: String): Int = if (filter.nonEmpty) {
     val u = username.toLowerCase

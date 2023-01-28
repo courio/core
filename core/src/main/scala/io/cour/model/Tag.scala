@@ -1,6 +1,7 @@
 package io.cour.model
 
-import com.outr.arango.{DocumentModel, Field, Id, Index, Serialization}
+import com.outr.arango.{DocumentModel, Field, Id, Index}
+import fabric.rw.RW
 
 case class Tag(created: Long = System.currentTimeMillis(),
                modified: Long = System.currentTimeMillis(),
@@ -9,14 +10,14 @@ case class Tag(created: Long = System.currentTimeMillis(),
 }
 
 object Tag extends DocumentModel[Tag] {
-  val created: Field[Long] = Field[Long]("created")
-  val modified: Field[Long] = Field[Long]("modified")
-  val _id: Field[com.outr.arango.Id[io.cour.model.Tag]] = Field[com.outr.arango.Id[io.cour.model.Tag]]("_id")
+  override implicit val rw: RW[Tag] = RW.gen
+
+  val created: Field[Long] = field[Long]("created")
+  val modified: Field[Long] = field[Long]("modified")
 
   def apply(name: String): Tag = Tag(_id = id(name.toLowerCase))
 
   override def indexes: List[Index] = index(created, modified)
 
   override val collectionName: String = "tags"
-  override implicit val serialization: Serialization[Tag] = Serialization.auto[Tag]
 }

@@ -2,7 +2,7 @@ package io.cour.communication
 
 import com.outr.arango.Id
 import io.cour.model.{AliasPreview, ErrorResult, NamedCredential, Profile, TwitterAccountPreview}
-import io.youi.net.URL
+import spice.net._
 
 import scala.concurrent.Future
 

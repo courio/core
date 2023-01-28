@@ -3,9 +3,8 @@ package io.cour.model
 import com.outr.arango.{DocumentModel, Field, Id, Index}
 
 trait CourioModel[D <: CourioDocument[D]] extends DocumentModel[D] {
-  val created: Field[Long] = Field[Long]("created")
-  val modified: Field[Long] = Field[Long]("modified")
-  val _id: Field[Id[D]] = Field[Id[D]]("_id")
+  val created: Field[Long] = field[Long]("created")
+  val modified: Field[Long] = field[Long]("modified")
 
   override def indexes: List[Index] = List(
     created.index.persistent(),

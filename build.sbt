@@ -1,34 +1,34 @@
 import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
 name := "courio-core"
-organization in ThisBuild := "io.cour"
-version in ThisBuild := "1.0.29-SNAPSHOT"
-scalaVersion in ThisBuild := "2.13.4"
+ThisBuild / organization := "io.cour"
+ThisBuild / version := "2.0.0-SNAPSHOT"
+ThisBuild / scalaVersion := "2.13.4"
 
-resolvers in ThisBuild ++= Seq(
-  Resolver.sonatypeRepo("releases"),
-  Resolver.sonatypeRepo("snapshots")
-)
-scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation", "-feature")
+ThisBuild / resolvers ++= Seq(
+  Resolver.sonatypeOssRepos("releases"),
+  Resolver.sonatypeOssRepos("snapshots")
+).flatten
+ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
 
-publishTo in ThisBuild := sonatypePublishToBundle.value
-sonatypeProfileName in ThisBuild := "io.cour"
-publishMavenStyle in ThisBuild := true
-licenses in ThisBuild := Seq("MIT" -> url("https://github.com/courio/core/blob/master/LICENSE"))
-sonatypeProjectHosting in ThisBuild := Some(xerial.sbt.Sonatype.GitHubHosting("courio", "core", "contact@courio.com"))
-homepage in ThisBuild := Some(url("https://courio.com"))
-scmInfo in ThisBuild := Some(
+ThisBuild / publishTo := sonatypePublishToBundle.value
+ThisBuild / sonatypeProfileName := "io.cour"
+ThisBuild / publishMavenStyle := true
+ThisBuild / licenses := Seq("MIT" -> url("https://github.com/courio/core/blob/master/LICENSE"))
+ThisBuild / sonatypeProjectHosting := Some(xerial.sbt.Sonatype.GitHubHosting("courio", "core", "contact@courio.com"))
+ThisBuild / homepage := Some(url("https://courio.com"))
+ThisBuild / scmInfo := Some(
   ScmInfo(
     url("https://github.com/courio/core"),
     "scm:git@github.com:courio/core.git"
   )
 )
-developers in ThisBuild := List(
+ThisBuild / developers := List(
   Developer(id="darkfrog", name="Matt Hicks", email="matt@matthicks.com", url=url("http://matthicks.com"))
 )
 
-val youiVersion = "0.13.20"
-val scarangoVersion = "2.4.2"
+val spiceVersion = "0.0.9-SNAPSHOT"
+val scarangoVersion = "3.8.1"
 
 lazy val root = project.in(file("."))
   .aggregate(coreJS, coreJVM)
@@ -43,7 +43,7 @@ lazy val core = crossProject(JSPlatform, JVMPlatform)
   .settings(
     name := "courio-core",
     libraryDependencies ++= Seq(
-      "io.youi" %%% "youi-core" % youiVersion,
+      "com.outr" %%% "spice-core" % spiceVersion,
       "com.outr" %%% "scarango-core" % scarangoVersion
     )
   )

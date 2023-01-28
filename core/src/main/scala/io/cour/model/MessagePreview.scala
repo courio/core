@@ -1,9 +1,6 @@
 package io.cour.model
 
-import com.outr.arango.Id
-import io.circe.Json
-import io.youi.Unique
-import io.youi.net.URL
+import com.outr.arango.{Id, Unique}
 
 case class MessagePreview(id: Id[MessagePreview],
                           organization: Labeled[OrganizationPreview],

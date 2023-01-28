@@ -1,7 +1,8 @@
 package io.cour.model
 
-import com.outr.arango.{DocumentModel, Field, Id, Index, Serialization}
-import io.youi.net.URL
+import com.outr.arango.{DocumentModel, Field, Id, Index}
+import fabric.rw.RW
+import spice.net.URL
 
 case class LinkPreview(url: String,
                        title: String,
@@ -18,22 +19,22 @@ case class LinkPreview(url: String,
                        _id: Id[LinkPreview] = LinkPreview.id()) extends CourioDocument[LinkPreview]
 
 object LinkPreview extends DocumentModel[LinkPreview] {
-  val url: Field[String] = Field[String]("url")
-  val title: Field[String] = Field[String]("title")
-  val siteName: Field[Option[String]] = Field[Option[String]]("siteName")
-  val description: Field[Option[String]] = Field[Option[String]]("description")
-  val byline: Field[Option[String]] = Field[Option[String]]("byline")
-  val `type`: Field[Option[String]] = Field[Option[String]]("type")
-  val favIcon: Field[Option[URL]] = Field[Option[URL]]("favIcon")
-  val preview: Field[Option[URL]] = Field[Option[URL]]("preview")
-  val previewWidth: Field[Option[Int]] = Field[Option[Int]]("previewWidth")
-  val previewHeight: Field[Option[Int]] = Field[Option[Int]]("previewHeight")
-  val created: Field[Long] = Field[Long]("created")
-  val modified: Field[Long] = Field[Long]("modified")
-  val _id: Field[com.outr.arango.Id[io.cour.model.LinkPreview]] = Field[com.outr.arango.Id[io.cour.model.LinkPreview]]("_id")
+  override implicit val rw: RW[LinkPreview] = RW.gen
+
+  val url: Field[String] = field[String]("url")
+  val title: Field[String] = field[String]("title")
+  val siteName: Field[Option[String]] = field[Option[String]]("siteName")
+  val description: Field[Option[String]] = field[Option[String]]("description")
+  val byline: Field[Option[String]] = field[Option[String]]("byline")
+  val `type`: Field[Option[String]] = field[Option[String]]("type")
+  val favIcon: Field[Option[URL]] = field[Option[URL]]("favIcon")
+  val preview: Field[Option[URL]] = field[Option[URL]]("preview")
+  val previewWidth: Field[Option[Int]] = field[Option[Int]]("previewWidth")
+  val previewHeight: Field[Option[Int]] = field[Option[Int]]("previewHeight")
+  val created: Field[Long] = field[Long]("created")
+  val modified: Field[Long] = field[Long]("modified")
 
   override def indexes: List[Index] = url.index.persistent(unique = true) :: index(created, modified)
 
   override val collectionName: String = "linkPreviews"
-  override implicit val serialization: Serialization[LinkPreview] = Serialization.auto[LinkPreview]
 }

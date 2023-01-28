@@ -1,7 +1,6 @@
 package io.cour.model
 
-import com.outr.arango.Id
-import io.youi.Unique
+import com.outr.arango.{Id, Unique}
 
 case class StreamPreview(sourceId: Id[SourcePreview],
                          label: String,

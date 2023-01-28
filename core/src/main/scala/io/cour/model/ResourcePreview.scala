@@ -1,8 +1,7 @@
 package io.cour.model
 
-import com.outr.arango.Id
-import io.youi.Unique
-import io.youi.net.{ContentType, URL}
+import com.outr.arango.{Id, Unique}
+import spice.net.{ContentType, URL}
 
 case class ResourcePreview(id: Id[ResourcePreview],
                            name: String,

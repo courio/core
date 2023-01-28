@@ -1,6 +1,7 @@
 package io.cour.model
 
-import com.outr.arango.{Field, Id, Index, IndexType, Serialization}
+import com.outr.arango.{Field, Id, Index, IndexType}
+import fabric.rw.RW
 import io.cour.query.SearchFilter
 
 case class Channel(label: String,
@@ -14,15 +15,16 @@ case class Channel(label: String,
 }
 
 object Channel extends CourioModel[Channel] {
-  val label: Field[String] = Field[String]("label")
-  val aliasId: Field[Option[Id[AliasPreview]]] = Field[Option[Id[AliasPreview]]]("aliasId")
-  val filters: Field[List[SearchFilter]] = Field[List[SearchFilter]]("filters")
-  val scope: Field[ChannelScope] = Field[ChannelScope]("scope")
+  override implicit val rw: RW[Channel] = RW.gen
 
-  override def indexes: List[Index] = Index(IndexType.Persistent, List(label, aliasId), unique = true) ::
+  val label: Field[String] = field[String]("label")
+  val aliasId: Field[Option[Id[AliasPreview]]] = field[Option[Id[AliasPreview]]]("aliasId")
+  val filters: Field[List[SearchFilter]] = field[List[SearchFilter]]("filters")
+  val scope: Field[ChannelScope] = field[ChannelScope]("scope")
+
+  override def indexes: List[Index] = Index(IndexType.Persistent, List(label.fieldName, aliasId.fieldName), unique = true) ::
     index(label, aliasId, scope) :::
     super.indexes
 
   override val collectionName: String = "channels"
-  override implicit val serialization: Serialization[Channel] = Serialization.auto[Channel]
 }
