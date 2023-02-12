@@ -3,7 +3,7 @@ import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 name := "courio-core"
 ThisBuild / organization := "io.cour"
 ThisBuild / version := "2.0.0-SNAPSHOT"
-ThisBuild / scalaVersion := "2.13.4"
+ThisBuild / scalaVersion := "2.13.10"
 
 ThisBuild / resolvers ++= Seq(
   Resolver.sonatypeOssRepos("releases"),
@@ -13,7 +13,7 @@ ThisBuild / scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature")
 
 ThisBuild / publishTo := sonatypePublishToBundle.value
 ThisBuild / sonatypeProfileName := "io.cour"
-ThisBuild / publishMavenStyle := true
+publishMavenStyle := true
 ThisBuild / licenses := Seq("MIT" -> url("https://github.com/courio/core/blob/master/LICENSE"))
 ThisBuild / sonatypeProjectHosting := Some(xerial.sbt.Sonatype.GitHubHosting("courio", "core", "contact@courio.com"))
 ThisBuild / homepage := Some(url("https://courio.com"))
@@ -27,7 +27,7 @@ ThisBuild / developers := List(
   Developer(id="darkfrog", name="Matt Hicks", email="matt@matthicks.com", url=url("http://matthicks.com"))
 )
 
-val spiceVersion = "0.0.9-SNAPSHOT"
+val spiceVersion = "0.0.16"
 val scarangoVersion = "3.8.1"
 
 lazy val root = project.in(file("."))

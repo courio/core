@@ -3,5 +3,5 @@ package io.cour
 import spice.net._
 
 object Paths {
-  lazy val upload: Path = path"/upload"
+  lazy val upload: URLPath = path"/upload"
 }
